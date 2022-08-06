@@ -1,7 +1,7 @@
 
 using UnityEngine;
 namespace  SampleFever {
-    public class BaseItem
+    public class BaseItem:MonoBehaviour
     {   
         internal Vector3 size;
         internal int price;

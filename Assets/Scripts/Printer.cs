@@ -4,13 +4,17 @@ using UnityEngine;
 using SampleFever;
 public class Printer : Generator,IHasTable
 {
-    public Transform table;
+    public GameObject table;
     public GameObject paper;
     
     void Start()
     {   
         myGenerator= new ItemGenerator(true,10,10);
-        myItem=paper;
+        myItemCreator=this.GetComponent<ItemCreate>();
+        //myItem=paper.GetComponent<Paper>();
+        myTable=table;
+        //table.addComponent(ItemCreate(paper));
+       // myTable.setItemSize(myItem.size);
         task=StartCoroutine(Produce()); 
     }
 
@@ -21,7 +25,7 @@ public class Printer : Generator,IHasTable
 
      
     public Vector3 getTablePossition(){
-        return table.position;
+        return table.transform.position;
     }
 
     public void Update() {

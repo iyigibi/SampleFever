@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SampleFever;
-public class Paper : Item
+namespace  SampleFever {
+public class Paper : BaseItem
 {
     
     void Start()
     {   
-
+        
     }
 
 
     public void Update() {
         
     }  
+}
 }
