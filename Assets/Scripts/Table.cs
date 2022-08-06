@@ -13,7 +13,7 @@ public class Table : MonoBehaviour
         
         for(var i=0;i<100;i++){
             for(var j=0;j<3;j++){
-                places.Add(new Place(new Vector3((j-1)*0.8f,i*0.1f,-1f),false));
+                places.Add(new Place(new Vector3((j-1)*0.8f,i*0.1f+0.21f,0),false));
                 
             }
         }
@@ -29,7 +29,9 @@ public class Table : MonoBehaviour
         itemCount++;
         return givenPlace;
     }
-
+    void onClick(){
+        
+    }
     // Update is called once per frame
     void Update()
     {

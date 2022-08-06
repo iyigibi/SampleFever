@@ -11,9 +11,15 @@ public class ItemCreate:MonoBehaviour
         //Implement pooling!!!!!!!!!!!!!!!!!!!
         Vector3 pos=new Vector3(0,0,0);
         newItem=Instantiate(whatToCreate, pos, Quaternion.identity);
-        Vector3 toPos=_generator.myTable.GetComponent<Table>().givePlace().position;
+        newItem.transform.SetParent(_generator.myTable.transform.parent,false);
+        Vector3 toPos=_generator.myTable.GetComponent<Table>().givePlace().position+_generator.myTable.transform.localPosition;
         Debug.Log(toPos);
         iTween.MoveTo(newItem.gameObject, iTween.Hash("position", toPos, "time", 0.5f, "islocal", true));
+        iTween.RotateBy(newItem.gameObject, iTween.Hash(
+                     "y", 0.08f*Random.value-0.04f, 
+                     "time", 0.5f,
+                     "easetype", "linear"
+                 ));
     }
 
     

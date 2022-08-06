@@ -7,9 +7,7 @@ public class Generator : MonoBehaviour
 {
     internal ItemGenerator myGenerator;
     internal Coroutine task;
-
     internal BaseItem myItem;
-    
     internal GameObject myTable;
     internal ItemCreate myItemCreator;
     
@@ -26,11 +24,12 @@ public class Generator : MonoBehaviour
             
             if(myGenerator.isOn()){
                 //start taskStart anim
-                myItemCreator.addSome(this);
+                
                 yield return new WaitForSeconds(myGenerator.startGenerating());
                 myGenerator.stopGenerating();
                 //start taskFinshed anim
                 //genereteItem
+                myItemCreator.addSome(this);
             }else{
                 StopCoroutine(task);
                 yield return null;
