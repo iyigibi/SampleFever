@@ -14,7 +14,6 @@ public class Table : MonoBehaviour
         for(var i=0;i<100;i++){
             for(var j=0;j<3;j++){
                 places.Add(new Place(new Vector3((j-1)*0.8f,i*0.1f+0.21f,0),false));
-                
             }
         }
 
@@ -23,11 +22,16 @@ public class Table : MonoBehaviour
         itemSize=_size;
     }
 
-    internal Place givePlace(){
+    internal Place givePlace(GameObject _item){
         Place givenPlace = places[itemCount];
-        givenPlace.setTaken();
+        givenPlace.setTaken(_item);
         itemCount++;
         return givenPlace;
+    }
+
+    internal void removePlace(){
+        itemCount--;
+        places[itemCount].setEmty();
     }
     void onClick(){
         
