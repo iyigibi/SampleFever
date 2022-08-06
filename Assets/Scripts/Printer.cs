@@ -5,7 +5,7 @@ using SampleFever;
 public class Printer : Generator,IHasTable
 {
     public Transform table;
-    public Paper paper;
+    public GameObject paper;
     
     void Start()
     {   

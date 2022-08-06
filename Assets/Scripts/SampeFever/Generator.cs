@@ -8,7 +8,7 @@ public class Generator : MonoBehaviour
     internal ItemGenerator myGenerator;
     internal Coroutine task;
 
-    internal Item myItem;
+    internal GameObject myItem;
     
   
 
@@ -23,7 +23,7 @@ public class Generator : MonoBehaviour
             
             if(myGenerator.isOn()){
                 //start taskStart anim
-                myItem.addSome();
+                myItem.GetComponent<Item>().addSome();
                 yield return new WaitForSeconds(myGenerator.startGenerating());
                 myGenerator.stopGenerating();
                 //start taskFinshed anim

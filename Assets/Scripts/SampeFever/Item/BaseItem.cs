@@ -5,6 +5,12 @@ namespace  SampleFever {
     {   
         internal Vector3 size;
         internal int price;
+        internal void onAdded(){
+
+        }
+        internal void onRemoved(){
+            
+        }
         
 
     }
