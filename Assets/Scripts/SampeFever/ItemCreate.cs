@@ -16,7 +16,7 @@ public class ItemCreate:MonoBehaviour
         //Debug.Log(toPos);
         iTween.MoveTo(newItem.gameObject, iTween.Hash("position", toPos, "time", 0.5f, "islocal", true));
         iTween.RotateBy(newItem.gameObject, iTween.Hash(
-                     "y", 0.08f*Random.value-0.04f, 
+                     "z", 0.08f*Random.value-0.04f, 
                      "time", 0.5f,
                      "easetype", "linear"
                  ));
