@@ -29,7 +29,11 @@ public class Generator : MonoBehaviour
                 myGenerator.stopGenerating();
                 //start taskFinshed anim
                 //genereteItem
-                myItemCreator.addSome(this);
+                bool isFull=myItemCreator.addSome(this);
+                if(isFull){
+                    
+                }
+                //Debug.Log(isFull);
             }else{
                 StopCoroutine(task);
                 yield return null;

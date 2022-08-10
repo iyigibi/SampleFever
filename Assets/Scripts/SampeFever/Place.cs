@@ -6,9 +6,12 @@ namespace  SampleFever {
         internal Vector3 position;
         internal bool taken;
         internal GameObject item;
-        public Place(Vector3 _position,bool _taken){
+        internal GameObject holder;
+
+        public Place(Vector3 _position,bool _taken,GameObject _holder){
             position= _position;
             taken=_taken;
+            holder=_holder;
         }
 
         internal void setTaken(GameObject _item){

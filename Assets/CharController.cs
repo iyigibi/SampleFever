@@ -9,6 +9,7 @@ public class CharController : MonoBehaviour
     private float maxSpeed=5;
     private Vector2 delta=Vector2.zero;
     private Vector2 preDelta=Vector2.zero;
+    private bool touchDown=false;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,35 +17,57 @@ public class CharController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
         Touch theTouch;
+        
+
          if(Input.touchCount > 0 )
          { 
                 theTouch = Input.GetTouch(0);
+                if(theTouch.phase == TouchPhase.Began)
+            {
+                preDelta=delta=theTouch.position;
+                touchDown=true;
+            }
             if(theTouch.phase == TouchPhase.Moved)
             {
-                if(delta==Vector2.zero){
-                    delta=theTouch.deltaPosition;
-                }
-                delta=Vector2.Lerp(delta,theTouch.deltaPosition,Time.deltaTime*10);
-                Debug.Log(delta.magnitude);
-                if(delta.magnitude>maxSpeed){
-                    delta=delta.normalized*maxSpeed;
-                }         
+                delta=theTouch.position;
+                       
             } else if(theTouch.phase==TouchPhase.Ended){
-                delta=Vector2.zero;
+                preDelta=delta=Vector2.zero;
+                touchDown=false;
             }
          }
                 
                
-                preDelta=Vector2.Lerp(preDelta,delta*1f,Time.deltaTime*1);
+               // preDelta=Vector2.Lerp(preDelta,delta*1f,Time.deltaTime*1);
                 
-                
-                rb.velocity=preDelta;
-                transform.right=rb.velocity.normalized;
                 //if(rb.velocity.magnitude>maxSpeed){ rb.velocity=rb.velocity.normalized*maxSpeed;};
                 
          
     }
+
+    void LateUpdate(){
+            if(touchDown){
+                rb.velocity=(delta-preDelta)*0.01f;
+                transform.up=rb.velocity.normalized;
+                }else{
+                    rb.velocity=Vector2.zero;
+                }
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        col.gameObject.GetComponent<Table>().collectors.Add(gameObject);
+        
+        //spriteMove = -0.1f;
+    }
+    void OnTriggerExit2D(Collider2D col)
+    {
+        col.gameObject.GetComponent<Table>().collectors.Remove(gameObject);
+        //spriteMove = -0.1f;
+    }
+
+
 }

@@ -6,13 +6,15 @@ public class Printer : Generator,IHasTable
 {
     public GameObject table;
     public GameObject paper;
+    public bool activeOnStart;
     
     void Start()
     {   
-        myGenerator= new ItemGenerator(true,10,10);
+        myTable=table;
+        myGenerator= new ItemGenerator(activeOnStart,myTable.GetComponent<Table>().maxItem,40);
         myItemCreator=this.GetComponent<ItemCreate>();
         //myItem=paper.GetComponent<Paper>();
-        myTable=table;
+        
         //table.addComponent(ItemCreate(paper));
        // myTable.setItemSize(myItem.size);
         task=StartCoroutine(Produce()); 
@@ -32,7 +34,7 @@ public class Printer : Generator,IHasTable
         if(myGenerator.isGenerating){
             //Debug.Log(myGenerator.isOn());
             myGenerator.taskTime+=Time.deltaTime;
-            transform.localScale =  new Vector3(1,1f+Mathf.Sin(myGenerator.getTaskPercent()*Mathf.PI),1);
+            transform.localScale =  new Vector3(1f+Mathf.Sin(myGenerator.getTaskPercent()*Mathf.PI),transform.localScale.y,transform.localScale.z);
         }
     }  
 }
