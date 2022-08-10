@@ -13,7 +13,7 @@ public class Table : MonoBehaviour
         
         for(var i=0;i<100;i++){
             for(var j=0;j<3;j++){
-                places.Add(new Place(new Vector3((j-1)*0.8f,0,i*0.1f+0.21f),false));
+                places.Add(new Place(new Vector3((j-1)*0.8f,0,-i*0.1f-0.51f),false));
             }
         }
 
