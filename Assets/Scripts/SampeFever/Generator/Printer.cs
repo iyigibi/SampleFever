@@ -11,8 +11,10 @@ public class Printer : Generator,IHasTable
     void Start()
     {   
         myTable=table;
-        myGenerator= new ItemGenerator(activeOnStart,myTable.GetComponent<Table>().maxItem,40);
+        myGenerator= new ItemGenerator(activeOnStart,9999,40);
         myItemCreator=this.GetComponent<ItemCreate>();
+        myTable.GetComponent<Table>().generator=(Generator)this;
+        
         //myItem=paper.GetComponent<Paper>();
         
         //table.addComponent(ItemCreate(paper));

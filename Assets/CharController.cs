@@ -10,10 +10,13 @@ public class CharController : MonoBehaviour
     private Vector2 delta=Vector2.zero;
     private Vector2 preDelta=Vector2.zero;
     private bool touchDown=false;
+    public Stack stack;
+    public GameObject tray;
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        stack=new Stack(tray,1,2,20);
     }
 
     // Update is called once per frame
@@ -59,14 +62,16 @@ public class CharController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        col.gameObject.GetComponent<Table>().collectors.Add(gameObject);
+        Table _table=col.gameObject.GetComponent<Table>();
+        if(!stack.IsFull()){
+             _table.AddCollector(gameObject);
+        }
+       
         
-        //spriteMove = -0.1f;
     }
     void OnTriggerExit2D(Collider2D col)
     {
-        col.gameObject.GetComponent<Table>().collectors.Remove(gameObject);
-        //spriteMove = -0.1f;
+        col.gameObject.GetComponent<Table>().RemoveCollector(gameObject);
     }
 
 

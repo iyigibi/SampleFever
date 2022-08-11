@@ -7,18 +7,22 @@ public class ItemCreate:MonoBehaviour
 {
     private GameObject newItem;
     public GameObject whatToCreate;
+
     public bool addSome(Generator _generator){
         //Implement pooling!!!!!!!!!!!!!!!!!!!
         Vector3 pos=new Vector3(0,0,0);
         /////take from pool
         newItem=Instantiate(whatToCreate, pos, Quaternion.identity);
-        Place myPlace=_generator.myTable.GetComponent<Table>().givePlace(newItem);
+        Table myTable=_generator.myTable.GetComponent<Table>();
+        
+        Place myPlace=myTable.askForPlace(newItem);
         if(myPlace==null){
             ///send to pool
+           // if()
+            _generator.EndJob();
             Destroy(newItem);
             return false;
         }
-        
         Transform holderTransform=myPlace.holder.transform;
         Vector3 toPos=myPlace.position+holderTransform.localPosition;
         newItem.transform.SetParent(holderTransform.parent,false);

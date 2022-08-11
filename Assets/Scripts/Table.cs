@@ -5,57 +5,52 @@ using SampleFever;
 
 public class Table : MonoBehaviour
 {
-    public List<Place> places = new List<Place>();
-    private int rowStackCount=3;
-    private int colStackCount=2;
-    private int maxStack=3;
-    internal int maxItem;
+
 
     public List<GameObject> collectors = new List<GameObject>();
-    public int itemCount=0;
-    private Vector3 itemSize;
-    void Start()
+    public Stack stack;
+    internal Generator generator;
+
+
+    void Awake()
     {
-        var k=0;
-        
-        for(var i=0;i<maxStack*(colStackCount);i++){
-            if(i>maxStack*k-1){
-                        k++;
-                        
-            }
-                for(var j=0;j<rowStackCount;j++){
-                    
-                    places.Add(new Place(new Vector3((j-1)*0.8f,(k-1)*-0.8f,((i-(k-1)*(maxStack)))*-0.1f-0.51f),false,gameObject));
-                }
-            
-        };
-        maxItem=places.Count;
-
-
+            stack=new Stack(gameObject,3,2,5);
     }
     internal void setItemSize(Vector3 _size){
-        itemSize=_size;
+        //itemSize=_size;
     }
 
-    internal Place givePlace(GameObject _item){
+    internal void AddCollector(GameObject _gameObject){
+        collectors.Add(_gameObject);
+        generator.StartJob();
+    }
+    internal void RemoveCollector(GameObject _gameObject){
+       // Debug.Log(collectors.IndexOf(_gameObject));
+        
+        collectors.Remove(_gameObject);
+        //generator.StartJob();
+    }
+
+    internal Place askForPlace(GameObject _item){
+        
         Place givenPlace;
         if(collectors.Count>0)
         {
+            givenPlace=collectors[0].GetComponent<CharController>().stack.givePlace(_item);
+            if(givenPlace!=null){
+                return givenPlace;
+            };
+            RemoveCollector(collectors[0]);
             
-
         }
-        if(itemCount>=places.Count){
-            return null;
-        }
-        givenPlace = places[itemCount];
-        givenPlace.setTaken(_item);
-        itemCount++;
+        givenPlace=stack.givePlace(_item);
+        
         return givenPlace;
     }
 
     internal void removePlace(){
-        itemCount--;
-        places[itemCount].setEmty();
+        stack.itemCount--;
+        stack.places[stack.itemCount].setEmty();
     }
     void onClick(){
         

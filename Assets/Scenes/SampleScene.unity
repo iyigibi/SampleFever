@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657755, g: 0.4964127, b: 0.57481825, a: 1}
+  m_IndirectSpecularColor: {r: 0.44594032, g: 0.49034274, b: 0.54566675, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -449,14 +449,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.13292812, y: 0.17035668, z: -0.023199672, w: 0.97609967}
+  m_LocalPosition: {x: -3.21, y: 5.63, z: -8.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15.51, y: 19.8, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,9 +566,9 @@ GameObject:
   - component: {fileID: 967612149}
   - component: {fileID: 967612148}
   - component: {fileID: 967612147}
-  - component: {fileID: 967612151}
   - component: {fileID: 967612150}
   - component: {fileID: 967612152}
+  - component: {fileID: 967612153}
   m_Layer: 0
   m_Name: Worker
   m_TagString: Untagged
@@ -655,32 +655,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc0ede24b55ef9645bfd48a13e446007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &967612151
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 967612145}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!50 &967612152
 Rigidbody2D:
   serializedVersion: 4
@@ -702,6 +676,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!58 &967612153
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967612145}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &983111568
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,8 +770,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 983111568}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.18, z: 0.41}
-  m_LocalScale: {x: 2.44, y: 1.03, z: 1}
+  m_LocalPosition: {x: 0, y: -1.25, z: 0.41}
+  m_LocalScale: {x: 2.44, y: 1.51, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 417090877}
@@ -799,6 +789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33513dc1a2c1e204284aca34b19e3cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectors: []
   itemCount: 0
 --- !u!61 &983111574
 BoxCollider2D:
@@ -810,7 +801,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -824,7 +815,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.49, y: 1.56}
   m_EdgeRadius: 0
 --- !u!1 &1071804312
 GameObject:
@@ -1196,8 +1187,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1599638124}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.19, z: 0.19}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.19, z: -0.87}
+  m_LocalScale: {x: 1, y: 1, z: 2.02}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 417090877}
@@ -1217,6 +1208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   table: {fileID: 983111568}
   paper: {fileID: 2765542676620732246, guid: ee4f063e80d8a1549bb02b23de5da1c7, type: 3}
+  activeOnStart: 1
 --- !u!114 &1599638131
 MonoBehaviour:
   m_ObjectHideFlags: 0

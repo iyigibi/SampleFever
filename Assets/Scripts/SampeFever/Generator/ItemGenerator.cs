@@ -10,6 +10,7 @@ namespace  SampleFever {
         internal float taskTime;
         internal float taskCompletionPercentage;
         internal bool isGenerating=false;
+        internal bool jobComplate=false;
         internal ItemGenerator(bool _isActive,int _maxCapacity,int _generatorSpeed){
             maxCapacity=_maxCapacity;
             generatorSpeed=_generatorSpeed;
@@ -33,7 +34,7 @@ namespace  SampleFever {
 
         
         internal bool isOn(){
-            return (isActive && (getCapacityRemaining()>0));
+            return (isActive && !jobComplate && (getCapacityRemaining()>0));
         }
         public override int getCapacityRemaining(){
             return maxCapacity-itemCount;

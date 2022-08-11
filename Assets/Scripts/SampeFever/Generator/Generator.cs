@@ -19,20 +19,31 @@ public class Generator : MonoBehaviour
         task=StartCoroutine(Produce()); 
      }
 
+    internal void EndJob(){
+        myGenerator.jobComplate=true;
+         collectOne();
+     }
+    internal void StartJob(){
+        myGenerator.jobComplate=false;
+        collectOne();
+     }
+
     internal IEnumerator Produce(){
         while (true){
             
             if(myGenerator.isOn()){
                 //start taskStart anim
-                
+                bool isNotFull=myItemCreator.addSome(this);
+                //Debug.Log(isNotFull);
+                if(!isNotFull){
+                    StopCoroutine(task);
+                    yield return null;
+                }
                 yield return new WaitForSeconds(myGenerator.startGenerating());
                 myGenerator.stopGenerating();
                 //start taskFinshed anim
                 //genereteItem
-                bool isFull=myItemCreator.addSome(this);
-                if(isFull){
-                    
-                }
+                
                 //Debug.Log(isFull);
             }else{
                 StopCoroutine(task);
