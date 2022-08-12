@@ -10,7 +10,7 @@ public class ItemCreate:MonoBehaviour
 
     public bool addSome(Generator _generator){
         //Implement pooling!!!!!!!!!!!!!!!!!!!
-        Vector3 pos=new Vector3(0,0,0);
+        Vector3 pos=_generator.transform.position;
         /////take from pool
         newItem=Instantiate(whatToCreate, pos, Quaternion.identity);
         Table myTable=_generator.myTable.GetComponent<Table>();
@@ -23,16 +23,20 @@ public class ItemCreate:MonoBehaviour
             Destroy(newItem);
             return false;
         }
+        //newItem.transform.position=myTable._transform.parent.position;
         Transform holderTransform=myPlace.holder.transform;
+        
         Vector3 toPos=myPlace.position+holderTransform.localPosition;
-        newItem.transform.SetParent(holderTransform.parent,false);
-
+        newItem.transform.SetParent(holderTransform.parent,true);
+//
         iTween.MoveTo(newItem.gameObject, iTween.Hash("position", toPos, "time", 0.5f, "islocal", true));
-        iTween.RotateBy(newItem.gameObject, iTween.Hash(
-                     "z", 0.08f*Random.value-0.04f, 
+        iTween.RotateTo(newItem.gameObject, iTween.Hash(
+                     "rotation", new Vector3(0,0,32f*Random.value-16f),
                      "time", 0.5f,
+                      "islocal", true,
                      "easetype", "linear"
                  ));
+
                  return true;
     }
 

@@ -39,6 +39,12 @@ public class Stack
         }
         return false;
     }
+    public bool IsEmpty(){
+        if(itemCount==0){
+            return true;
+        }
+        return false;
+    }
     public Place givePlace(GameObject _item){
             Place givenPlace;
 
