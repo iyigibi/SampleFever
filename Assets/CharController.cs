@@ -63,15 +63,26 @@ public class CharController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         Table _table=col.gameObject.GetComponent<Table>();
-        if(!stack.IsFull()){
+        if(_table && !stack.IsFull()){
              _table.AddCollector(gameObject);
+        }
+        Desk _desk=col.gameObject.GetComponent<Desk>();
+        if(_desk && !stack.IsEmpty()){
+             _desk.AddDropper(gameObject);
         }
        
         
     }
     void OnTriggerExit2D(Collider2D col)
     {
-        col.gameObject.GetComponent<Table>().RemoveCollector(gameObject);
+        Table _table=col.gameObject.GetComponent<Table>();
+        if(_table && !stack.IsFull()){
+             _table.RemoveCollector(gameObject);
+        }
+        Desk _desk=col.gameObject.GetComponent<Desk>();
+        if(_desk){
+             _desk.RemoveDropper(gameObject);
+        }
     }
 
 
