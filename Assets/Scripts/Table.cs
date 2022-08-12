@@ -59,14 +59,42 @@ public class Table : MonoBehaviour
 
     internal IEnumerator tableToWorker(){
         while (true){
-            if(stack.IsEmpty()){
+            if(stack.IsEmpty() && collectors.Count==0){
                 StopCoroutine(tableToWorkerCoroutine);
+                yield return new WaitForSeconds(0.2f);
             }else{
-                Debug.Log("table to worker");
+                CharController activeCollector=collectors[0].GetComponent<CharController>();
+                if(!activeCollector.stack.IsFull()){
+                    
+                    GameObject takenItem=stack.takePlace();
+                    if(!takenItem){
+                        StopCoroutine(tableToWorkerCoroutine);
+                        yield return new WaitForSeconds(0.2f);
+                    }
+                    Place myPlace=activeCollector.stack.givePlace(takenItem);
 
-                yield return new WaitForSeconds(0.5f);
+                    Transform holderTransform=myPlace.holder.transform;
+        
+                    Vector3 toPos=myPlace.position+holderTransform.localPosition;
+                    takenItem.transform.SetParent(holderTransform.parent,true);
+            //
+                    iTween.MoveTo(takenItem.gameObject, iTween.Hash("position", toPos, "time", 0.5f, "islocal", true));
+                    iTween.RotateTo(takenItem.gameObject, iTween.Hash(
+                                "rotation", new Vector3(0,0,32f*Random.value-16f),
+                                "time", 0.5f,
+                                "islocal", true,
+                                "easetype", "linear"
+                            ));
+
+
+                    yield return new WaitForSeconds(0.2f);
+                }else{
+                    StopCoroutine(tableToWorkerCoroutine);
+                    yield return new WaitForSeconds(0.2f);
+                }
+                
             }
-            
+            //yield return new WaitForSeconds(0.5f);
         }
         }
 

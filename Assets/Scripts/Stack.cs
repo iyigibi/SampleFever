@@ -57,4 +57,14 @@ public class Stack
             itemCount++;
             return givenPlace;
         }
+    public GameObject takePlace(){
+        GameObject takenItem;
+        if(IsEmpty()){
+            return null;
+        }
+            takenItem = places[itemCount-1].item;
+            places[itemCount-1].setTaken(null);
+            itemCount--;
+            return takenItem;
+    }
 }
