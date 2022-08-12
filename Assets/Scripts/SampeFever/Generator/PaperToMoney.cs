@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SampleFever;
-public class Printer : Generator,IHasTable
+public class PaperToMoney : Generator,IHasTable
 {
     public GameObject table;
     public bool activeOnStart;
+
     
     void Start()
     {   
@@ -13,16 +14,7 @@ public class Printer : Generator,IHasTable
         myGenerator= new ItemGenerator(activeOnStart,9999,40);
         myItemCreator=this.GetComponent<ItemCreate>();
         myTable.GetComponent<Table>().generator=(Generator)this;
-        
-        //myItem=paper.GetComponent<Paper>();
-        
-        //table.addComponent(ItemCreate(paper));
-       // myTable.setItemSize(myItem.size);
-       if(!taskIsRunning){
-            task=StartCoroutine(Produce()); 
-            taskIsRunning=true;
-       }
-        
+
     }
 
 

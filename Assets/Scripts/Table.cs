@@ -11,6 +11,11 @@ public class Table : MonoBehaviour
     public Stack stack;
     internal Generator generator;
     internal Coroutine tableToWorkerCoroutine;
+    internal bool tableToWorkerCoroutineIsRunning;
+            
+    [SerializeField]
+    internal bool drivenByADesk;
+    public Desk myDesk;
 
 
 
@@ -25,8 +30,22 @@ public class Table : MonoBehaviour
 
     internal void AddCollector(GameObject _gameObject){
         collectors.Add(_gameObject);
-        generator.StartJob();
-        tableToWorkerCoroutine=StartCoroutine(tableToWorker());
+        
+        
+        if(!drivenByADesk){
+            generator.StartJob();
+        }else{
+            if(!tableToWorkerCoroutineIsRunning){
+            tableToWorkerCoroutine=StartCoroutine(tableToWorker());
+            tableToWorkerCoroutineIsRunning=true;
+            }
+            if(!myDesk.DeskToTableCoroutineIsRunning){
+                myDesk.DeskToTableCoroutine=StartCoroutine(myDesk.DeskToTable());
+                myDesk.DeskToTableCoroutineIsRunning=true;
+            }
+            
+        }
+        
     }
     internal void RemoveCollector(GameObject _gameObject){
        // Debug.Log(collectors.IndexOf(_gameObject));
@@ -36,7 +55,7 @@ public class Table : MonoBehaviour
     }
 
     internal Place askForPlace(GameObject _item){
-        
+  
         Place givenPlace;
         if(collectors.Count>0)
         {
@@ -48,7 +67,6 @@ public class Table : MonoBehaviour
             
         }
         givenPlace=stack.givePlace(_item);
-        
         return givenPlace;
     }
 
@@ -59,16 +77,19 @@ public class Table : MonoBehaviour
 
     internal IEnumerator tableToWorker(){
         while (true){
-            if(stack.IsEmpty() && collectors.Count==0){
+            if(stack.IsEmpty() || collectors.Count==0){
                 StopCoroutine(tableToWorkerCoroutine);
+                tableToWorkerCoroutineIsRunning=false;
                 yield return new WaitForSeconds(0.2f);
             }else{
                 CharController activeCollector=collectors[0].GetComponent<CharController>();
+                
                 if(!activeCollector.stack.IsFull()){
                     
                     GameObject takenItem=stack.takePlace();
                     if(!takenItem){
                         StopCoroutine(tableToWorkerCoroutine);
+                        tableToWorkerCoroutineIsRunning=false;
                         yield return new WaitForSeconds(0.2f);
                     }
                     Place myPlace=activeCollector.stack.givePlace(takenItem);
@@ -90,6 +111,7 @@ public class Table : MonoBehaviour
                     yield return new WaitForSeconds(0.2f);
                 }else{
                     StopCoroutine(tableToWorkerCoroutine);
+                    tableToWorkerCoroutineIsRunning=false;
                     yield return new WaitForSeconds(0.2f);
                 }
                 

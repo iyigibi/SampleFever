@@ -7,28 +7,33 @@ public class Generator : MonoBehaviour
 {
     internal ItemGenerator myGenerator;
     internal Coroutine task;
+    internal bool taskIsRunning;
     internal BaseItem myItem;
     internal GameObject myTable;
     internal ItemCreate myItemCreator;
     
   
 
-     internal void collectOne(){
-        myGenerator.collectOne();
-        if(!myGenerator.isGenerating)
-        task=StartCoroutine(Produce()); 
+     internal void collectOne(bool once=false){
+        
+        if(!taskIsRunning){
+            myGenerator.collectOne();
+            task=StartCoroutine(Produce(once)); 
+            taskIsRunning=true;
+        }
+        
      }
 
     internal void EndJob(){
         myGenerator.jobComplate=true;
          collectOne();
      }
-    internal void StartJob(){
+    internal void StartJob(bool once=false){
         myGenerator.jobComplate=false;
-        collectOne();
+        collectOne(once);
      }
 
-    internal IEnumerator Produce(){
+    internal IEnumerator Produce(bool once=false){
         while (true){
             
             if(myGenerator.isOn()){
@@ -36,17 +41,33 @@ public class Generator : MonoBehaviour
                 bool isNotFull=myItemCreator.addSome(this);
                 //Debug.Log(isNotFull);
                 if(!isNotFull){
-                    StopCoroutine(task);
+                    if(taskIsRunning){
+                        StopCoroutine(task);
+                    taskIsRunning=false;
+                    }
+                    
                     yield return null;
                 }
                 yield return new WaitForSeconds(myGenerator.startGenerating());
                 myGenerator.stopGenerating();
+                if(once){
+                    if(taskIsRunning){
+                        StopCoroutine(task);
+                    taskIsRunning=false;
+                    }
+                    
+                    yield return null;
+                }
                 //start taskFinshed anim
                 //genereteItem
                 
                 //Debug.Log(isFull);
             }else{
-                StopCoroutine(task);
+                if(taskIsRunning){
+                    StopCoroutine(task);
+                taskIsRunning=false;
+                }
+                
                 yield return null;
             }
             

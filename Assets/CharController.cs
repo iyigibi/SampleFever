@@ -76,7 +76,7 @@ public class CharController : MonoBehaviour
     void OnTriggerExit2D(Collider2D col)
     {
         Table _table=col.gameObject.GetComponent<Table>();
-        if(_table && !stack.IsFull()){
+        if(_table){
              _table.RemoveCollector(gameObject);
         }
         Desk _desk=col.gameObject.GetComponent<Desk>();
