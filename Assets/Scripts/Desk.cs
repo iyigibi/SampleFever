@@ -14,6 +14,9 @@ public class Desk : MonoBehaviour
         internal Coroutine DeskToTableCoroutine;
         internal bool DeskToTableCoroutineIsRunning;
         private Table table;
+           [SerializeField]
+        private int costForNewItem=4;
+        private int itemTaken=0;
     void Awake(){
         stack=new Stack(gameObject,1,1,50);
         
@@ -25,15 +28,9 @@ public class Desk : MonoBehaviour
 
         droppers.Add(_dropper);
         //generator.StartJob();
-        if(!workerToDeskCoroutineIsRunning){
-            workerToDeskCoroutine=StartCoroutine(workerToDesk());
-            workerToDeskCoroutineIsRunning=true;
-        }
+        startWorkerToDesk();
         
-        if(!DeskToTableCoroutineIsRunning){
-            DeskToTableCoroutine=StartCoroutine(DeskToTable());
-            DeskToTableCoroutineIsRunning=true;
-        }
+        startDeskToTable();
         
     }
         internal void RemoveDropper(GameObject _gameObject){
@@ -48,26 +45,24 @@ public class Desk : MonoBehaviour
             if(!stack.IsEmpty() && !table.stack.IsFull()){
                 GameObject takenItem=stack.takePlace();
                 Destroy(takenItem);
-                generator.StartJob(true);
-            }else{
-                if(DeskToTableCoroutineIsRunning){
-                StopCoroutine(DeskToTableCoroutine);
-                DeskToTableCoroutineIsRunning=false;
-                
+                itemTaken++;
+                if(itemTaken==costForNewItem){
+                    generator.StartJob(true);
+                    itemTaken=0;
                 }
+                
+            }else{
+                stopDeskToTable();
             }
             
                 yield return new WaitForSeconds(0.2f);
         }
         }
+
         internal IEnumerator workerToDesk(){
         while (true){
             if(stack.IsFull() || droppers.Count==0){
-                if(workerToDeskCoroutineIsRunning){
-                    StopCoroutine(workerToDeskCoroutine);
-                    workerToDeskCoroutineIsRunning=false;
-                    
-                }
+                stopWorkerToDesk();
                 yield return new WaitForSeconds(0.2f);
                 
             }else{
@@ -75,11 +70,7 @@ public class Desk : MonoBehaviour
                 if(!activeDropper.stack.IsEmpty()){
                     GameObject takenItem=activeDropper.stack.takePlace();
                     if(!takenItem){
-                        if(workerToDeskCoroutineIsRunning){
-                           StopCoroutine(workerToDeskCoroutine);
-                            workerToDeskCoroutineIsRunning=false;
-                            
-                        }
+                        stopWorkerToDesk();
                         yield return new WaitForSeconds(0.2f);
                         
                     }
@@ -102,11 +93,7 @@ public class Desk : MonoBehaviour
 
                     yield return new WaitForSeconds(0.04f);
                 }else{
-                    if(workerToDeskCoroutineIsRunning){
-                        StopCoroutine(workerToDeskCoroutine);
-                     workerToDeskCoroutineIsRunning=false;
-                     
-                    }
+                    stopWorkerToDesk();
                     yield return new WaitForSeconds(0.2f);
                     
                 }
@@ -114,5 +101,36 @@ public class Desk : MonoBehaviour
             }
             //yield return new WaitForSeconds(0.5f);
         }
+        }
+
+        
+        void stopWorkerToDesk(){
+                if(workerToDeskCoroutineIsRunning){
+                    StopCoroutine(workerToDeskCoroutine);
+                    workerToDeskCoroutineIsRunning=false;
+                    
+                }
+        }
+        void startWorkerToDesk(){
+                if(!workerToDeskCoroutineIsRunning){
+                    workerToDeskCoroutine=StartCoroutine(workerToDesk());
+                    workerToDeskCoroutineIsRunning=true;
+                }
+        }
+
+        void stopDeskToTable(){
+            if(DeskToTableCoroutineIsRunning){
+                StopCoroutine(DeskToTableCoroutine);
+                DeskToTableCoroutineIsRunning=false;
+                
+            }
+        }
+
+
+        void startDeskToTable(){
+                if(!DeskToTableCoroutineIsRunning){
+                    DeskToTableCoroutine=StartCoroutine(DeskToTable());
+                    DeskToTableCoroutineIsRunning=true;
+                }
         }
 }

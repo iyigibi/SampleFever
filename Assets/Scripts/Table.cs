@@ -31,14 +31,14 @@ public class Table : MonoBehaviour
     internal void AddCollector(GameObject _gameObject){
         collectors.Add(_gameObject);
         
-        
-        if(!drivenByADesk){
-            generator.StartJob();
-        }else{
-            if(!tableToWorkerCoroutineIsRunning){
+        if(!tableToWorkerCoroutineIsRunning){
             tableToWorkerCoroutine=StartCoroutine(tableToWorker());
             tableToWorkerCoroutineIsRunning=true;
             }
+        if(!drivenByADesk){
+            generator.StartJob();
+        }else{
+            
             if(!myDesk.DeskToTableCoroutineIsRunning){
                 myDesk.DeskToTableCoroutine=StartCoroutine(myDesk.DeskToTable());
                 myDesk.DeskToTableCoroutineIsRunning=true;
@@ -59,7 +59,12 @@ public class Table : MonoBehaviour
         Place givenPlace;
         if(collectors.Count>0)
         {
-            givenPlace=collectors[0].GetComponent<CharController>().stack.givePlace(_item);
+            if(_item.GetComponent<Money>()){
+                        givenPlace=new Place(new Vector3(0,0,0),false,collectors[0].transform.GetChild(0).gameObject);
+            }else{
+                    givenPlace=collectors[0].GetComponent<CharController>().stack.givePlace(_item);
+            }
+            
             if(givenPlace!=null){
                 return givenPlace;
             };
@@ -97,22 +102,32 @@ public class Table : MonoBehaviour
                         
                         yield return new WaitForSeconds(0.2f);
                     }
-                    Place myPlace=activeCollector.stack.givePlace(takenItem);
+                    Place myPlace;
+                    float speed=0.5f;
+                    if(takenItem.gameObject.GetComponent<Money>()){
+                        myPlace=new Place(new Vector3(0,0,-1),false,collectors[0].transform.GetChild(0).gameObject);
+                        speed=0.1f;
+                        Destroy(takenItem, speed);
+                        
+                    }else{
+                        myPlace=activeCollector.stack.givePlace(takenItem);
+                    }
+                    
 
                     Transform holderTransform=myPlace.holder.transform;
         
                     Vector3 toPos=myPlace.position+holderTransform.localPosition;
                     takenItem.transform.SetParent(holderTransform.parent,true);
             //
-                    iTween.MoveTo(takenItem.gameObject, iTween.Hash("position", toPos, "time", 0.5f, "islocal", true));
+                    iTween.MoveTo(takenItem.gameObject, iTween.Hash("position", toPos, "time", speed, "islocal", true));
                     iTween.RotateTo(takenItem.gameObject, iTween.Hash(
                                 "rotation", new Vector3(0,0,32f*Random.value-16f),
-                                "time", 0.5f,
+                                "time", speed,
                                 "islocal", true,
                                 "easetype", "linear"
                             ));
 
-
+                    
                     yield return new WaitForSeconds(0.2f);
                 }else{
                     StopCoroutine(tableToWorkerCoroutine);
@@ -123,6 +138,7 @@ public class Table : MonoBehaviour
             }
             //yield return new WaitForSeconds(0.5f);
         }
+
         }
 
     void onClick(){

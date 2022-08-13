@@ -47,6 +47,7 @@ public class Stack
     }
     public Place givePlace(GameObject _item){
             Place givenPlace;
+            
 
             
             if(IsFull()){

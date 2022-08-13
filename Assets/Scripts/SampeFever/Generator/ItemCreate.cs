@@ -24,15 +24,21 @@ public class ItemCreate:MonoBehaviour
             return false;
         }
         //newItem.transform.position=myTable._transform.parent.position;
+        float speed=0.5f;
+        if(!myPlace.holder.GetComponent<Table>() && newItem.GetComponent<Money>()){
+            speed=0.2f;
+            Destroy(newItem,speed);
+            
+        }
         Transform holderTransform=myPlace.holder.transform;
         
         Vector3 toPos=myPlace.position+holderTransform.localPosition;
         newItem.transform.SetParent(holderTransform.parent,true);
 //
-        iTween.MoveTo(newItem.gameObject, iTween.Hash("position", toPos, "time", 0.5f, "islocal", true));
+        iTween.MoveTo(newItem.gameObject, iTween.Hash("position", toPos, "time", speed, "islocal", true));
         iTween.RotateTo(newItem.gameObject, iTween.Hash(
                      "rotation", new Vector3(0,0,32f*Random.value-16f),
-                     "time", 0.5f,
+                     "time", speed,
                       "islocal", true,
                      "easetype", "linear"
                  ));
