@@ -78,8 +78,10 @@ public class Table : MonoBehaviour
     internal IEnumerator tableToWorker(){
         while (true){
             if(stack.IsEmpty() || collectors.Count==0){
-                StopCoroutine(tableToWorkerCoroutine);
-                tableToWorkerCoroutineIsRunning=false;
+                if(tableToWorkerCoroutineIsRunning){
+                            StopCoroutine(tableToWorkerCoroutine);
+                            tableToWorkerCoroutineIsRunning=false;
+                        }
                 yield return new WaitForSeconds(0.2f);
             }else{
                 CharController activeCollector=collectors[0].GetComponent<CharController>();
@@ -88,8 +90,11 @@ public class Table : MonoBehaviour
                     
                     GameObject takenItem=stack.takePlace();
                     if(!takenItem){
-                        StopCoroutine(tableToWorkerCoroutine);
-                        tableToWorkerCoroutineIsRunning=false;
+                        if(tableToWorkerCoroutineIsRunning){
+                            StopCoroutine(tableToWorkerCoroutine);
+                            tableToWorkerCoroutineIsRunning=false;
+                        }
+                        
                         yield return new WaitForSeconds(0.2f);
                     }
                     Place myPlace=activeCollector.stack.givePlace(takenItem);
