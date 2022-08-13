@@ -12,6 +12,8 @@ public class CharController : MonoBehaviour
     private bool touchDown=false;
     public Stack stack;
     public GameObject tray;
+    [SerializeField]
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,10 +55,20 @@ public class CharController : MonoBehaviour
 
     void LateUpdate(){
             if(touchDown){
-                rb.velocity=(delta-preDelta)*0.01f;
-                transform.up=rb.velocity.normalized;
+                Vector3 velocity=(delta-preDelta)*0.01f;
+                float sqrMag=velocity.sqrMagnitude;
+                Vector3 velocityNorm=velocity.normalized;
+                if(sqrMag>maxSpeed){
+                    velocity=velocityNorm*maxSpeed;
+                }
+                
+                rb.velocity=velocity;
+                animator.SetBool("isWalking",true);
+                animator.SetFloat("speed",sqrMag);
+                transform.up=velocityNorm;
                 }else{
                     rb.velocity=Vector2.zero;
+                    animator.SetBool("isWalking",false);
                 }
     }
 
