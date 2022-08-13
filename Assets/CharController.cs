@@ -70,6 +70,11 @@ public class CharController : MonoBehaviour
                     rb.velocity=Vector2.zero;
                     animator.SetBool("isWalking",false);
                 }
+            if(stack.IsEmpty()){
+                animator.SetBool("isCarrying",false);
+            }else{
+                animator.SetBool("isCarrying",true);
+            }
     }
 
     void OnTriggerEnter2D(Collider2D col)
