@@ -22,7 +22,8 @@ public class Desk : MonoBehaviour
         
     }
     void Start(){
-        table=generator.myTable.GetComponent<Table>();
+
+        table=((Generator)generator).myTable.GetComponent<Table>();
     }
     internal void AddDropper(GameObject _dropper){
 

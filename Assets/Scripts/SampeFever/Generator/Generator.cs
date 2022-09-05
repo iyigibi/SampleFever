@@ -9,7 +9,7 @@ public class Generator : MonoBehaviour
     internal Coroutine task;
     internal bool taskIsRunning;
     internal BaseItem myItem;
-    internal GameObject myTable;
+    public GameObject myTable;
     internal ItemCreate myItemCreator;
     
   

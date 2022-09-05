@@ -4,13 +4,12 @@ using UnityEngine;
 using SampleFever;
 public class PaperToMoney : Generator,IHasTable
 {
-    public GameObject table;
     public bool activeOnStart;
 
     
     void Start()
     {   
-        myTable=table;
+        
         myGenerator= new ItemGenerator(activeOnStart,9999,40);
         myItemCreator=this.GetComponent<ItemCreate>();
         myTable.GetComponent<Table>().generator=(Generator)this;
@@ -21,7 +20,7 @@ public class PaperToMoney : Generator,IHasTable
 
      
     public Vector3 getTablePossition(){
-        return table.transform.position;
+        return myTable.transform.position;
     }
 
     public void Update() {
