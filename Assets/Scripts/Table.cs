@@ -105,10 +105,14 @@ public class Table : MonoBehaviour
                     Place myPlace;
                     float speed=0.5f;
                     if(takenItem.gameObject.GetComponent<Money>()){
-                        myPlace=new Place(new Vector3(0,0,-1),false,collectors[0].transform.GetChild(0).gameObject);
+                        GameObject collector=collectors[0];
+                        myPlace=new Place(new Vector3(0,0,-1),false,collector.transform.GetChild(0).gameObject);
                         speed=0.1f;
                         Destroy(takenItem, speed);
+                        collector.GetComponent<Wallet>().TakeMoney();
                         
+
+                        //moneyCollected
                     }else{
                         myPlace=activeCollector.stack.givePlace(takenItem);
                     }

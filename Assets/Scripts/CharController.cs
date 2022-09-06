@@ -87,6 +87,10 @@ public class CharController : MonoBehaviour
         if(_desk && !stack.IsEmpty()){
              _desk.AddDropper(gameObject);
         }
+        OfficeItemCreator creator=col.gameObject.GetComponent<OfficeItemCreator>();
+        if(creator){
+            creator.OnWorkerEnter(gameObject);
+        }
        
         
     }
@@ -99,6 +103,10 @@ public class CharController : MonoBehaviour
         Desk _desk=col.gameObject.GetComponent<Desk>();
         if(_desk){
              _desk.RemoveDropper(gameObject);
+        }
+        OfficeItemCreator creator=col.gameObject.GetComponent<OfficeItemCreator>();
+        if(creator){
+            creator.OnWorkerExit();
         }
     }
 
