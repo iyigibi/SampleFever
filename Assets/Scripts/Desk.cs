@@ -17,8 +17,11 @@ public class Desk : MonoBehaviour
            [SerializeField]
         private int costForNewItem=4;
         private int itemTaken=0;
+        private Pooler pooler;
+
     void Awake(){
         stack=new Stack(gameObject,1,1,50);
+        pooler=Pooler.Instance;
         
     }
     void Start(){
@@ -45,7 +48,8 @@ public class Desk : MonoBehaviour
         while (true){
             if(!stack.IsEmpty() && !table.stack.IsFull()){
                 GameObject takenItem=stack.takePlace();
-                Destroy(takenItem);
+                pooler.SendToPool(takenItem);
+                //Destroy(takenItem);
                 itemTaken++;
                 if(itemTaken==costForNewItem){
                     generator.StartJob(true);

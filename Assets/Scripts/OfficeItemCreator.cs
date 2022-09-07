@@ -14,8 +14,8 @@ public class OfficeItemCreator : MonoBehaviour
     private float price;
     [SerializeField]
     private GameObject whatToCreate;
-    [SerializeField]
-    private Spawner Spawner;
+
+    private Pooler pooler;
     private float paid=0;
     private Image barImage;
     private Wallet wallet;
@@ -26,8 +26,8 @@ public class OfficeItemCreator : MonoBehaviour
     {
         barImage=transform.GetChild(0).GetChild(1).GetComponent<Image>();
         yazi=transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
-        Spawner=transform.parent.GetComponent<Spawner>();
         displayMoney();
+        pooler=Pooler.Instance;
     }
 
     void Update()
@@ -41,7 +41,9 @@ public class OfficeItemCreator : MonoBehaviour
     internal IEnumerator ProgressStep(){
         while (true){
             if(paid==price){
-                Spawner.Spawn(whatToCreate,transform.position,transform.rotation);
+                pooler.SpawnFromPool(whatToCreate.name,transform.position,transform.rotation);
+                //Spawner.Spawn(whatToCreate,transform.position,transform.rotation);
+                
                 Destroy(gameObject);
                 StopCoroutineFunc();
                 yield return new WaitForSeconds(0.05f);

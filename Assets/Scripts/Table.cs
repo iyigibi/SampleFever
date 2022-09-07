@@ -16,12 +16,14 @@ public class Table : MonoBehaviour
     [SerializeField]
     internal bool drivenByADesk;
     public Desk myDesk;
+    private Pooler pooler;
 
 
 
     void Awake()
     {
             stack=new Stack(gameObject,3,2,5);
+            pooler=Pooler.Instance;
 
     }
     internal void setItemSize(Vector3 _size){
@@ -108,7 +110,8 @@ public class Table : MonoBehaviour
                         GameObject collector=collectors[0];
                         myPlace=new Place(new Vector3(0,0,-1),false,collector.transform.GetChild(0).gameObject);
                         speed=0.1f;
-                        Destroy(takenItem, speed);
+                        pooler.SendToPool(takenItem,speed);
+                        //Destroy(takenItem, speed);
                         collector.GetComponent<Wallet>().TakeMoney();
                         
 
