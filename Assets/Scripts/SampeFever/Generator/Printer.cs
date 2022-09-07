@@ -10,7 +10,7 @@ public class Printer : Generator,IHasTable
     void Start()
     {   
         myTable=table;
-        myGenerator= new ItemGenerator(activeOnStart,9999,5);
+        myGenerator= new ItemGenerator(activeOnStart,9999,50);
         myItemCreator=this.GetComponent<ItemCreate>();
         myTable.GetComponent<Table>().generator=(Generator)this;
         

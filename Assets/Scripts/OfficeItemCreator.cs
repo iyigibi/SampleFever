@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class OfficeItemCreator : MonoBehaviour
 {
 
+
     internal Coroutine Progress;
+    private bool isProgressRunning=false;
     [SerializeField]
     private float price;
     [SerializeField]
@@ -14,26 +17,35 @@ public class OfficeItemCreator : MonoBehaviour
     private float paid=0;
     private Image barImage;
     private Wallet wallet;
+    private TextMeshProUGUI yazi;
 
     void Start()
     {
         barImage=transform.GetChild(0).GetChild(1).GetComponent<Image>();
+        yazi=transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
+        displayMoney();
     }
 
     void Update()
     {
         
     }
+    private void displayMoney(){
+            yazi.text = paid.ToString()+"/"+price.ToString();
+    }
+
     internal IEnumerator ProgressStep(){
         while (true){
             if(paid==price){
                 //spawnIt
-                StopCoroutine(Progress);
+                StopCoroutineFunc();
                 yield return new WaitForSeconds(0.005f);
             }else{
                 bool moneyGot=wallet.GiveMoney();
                 if(moneyGot){
                     paid++;
+                    displayMoney();
+                    
                     barImage.fillAmount=(paid/price);
                 }
                 
@@ -44,10 +56,22 @@ public class OfficeItemCreator : MonoBehaviour
     }
     internal void OnWorkerEnter(GameObject gameObject_){
         wallet=gameObject_.GetComponent<Wallet>();
-        Progress=StartCoroutine(ProgressStep()); 
+        StartCoroutineFunc();
+        
     }
     internal void OnWorkerExit(){
-        Debug.Log("bing"+paid);
-        StopCoroutine(Progress);
+        StopCoroutineFunc();
+    }
+    private void StartCoroutineFunc(){
+        if(!isProgressRunning){
+            Progress=StartCoroutine(ProgressStep());
+            isProgressRunning=true;
+        }
+    }
+    private void StopCoroutineFunc(){
+        if(isProgressRunning){
+            StopCoroutine(Progress);
+            isProgressRunning=false;
+        };
     }
 }
