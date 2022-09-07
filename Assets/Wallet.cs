@@ -24,9 +24,9 @@ public class Wallet : MonoBehaviour
     private void displayMoney(){
         yazi.text = coin.ToString();
     }
-    void Start()
+    void Awake()
     {
-        
+        displayMoney();
     }
 
     // Update is called once per frame

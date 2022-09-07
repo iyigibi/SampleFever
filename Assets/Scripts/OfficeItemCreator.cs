@@ -28,6 +28,9 @@ public class OfficeItemCreator : MonoBehaviour
         yazi=transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
         displayMoney();
         pooler=Pooler.Instance;
+        if(paid==price){
+            StartCoroutineFunc();
+        }
     }
 
     void Update()
@@ -40,13 +43,14 @@ public class OfficeItemCreator : MonoBehaviour
 
     internal IEnumerator ProgressStep(){
         while (true){
+            yield return new WaitForSeconds(0.05f);
             if(paid==price){
                 pooler.SpawnFromPool(whatToCreate.name,transform.position,transform.rotation);
                 //Spawner.Spawn(whatToCreate,transform.position,transform.rotation);
                 
                 Destroy(gameObject);
                 StopCoroutineFunc();
-                yield return new WaitForSeconds(0.05f);
+                
             }else{
                 bool moneyGot=wallet.GiveMoney();
                 if(moneyGot){
@@ -56,7 +60,7 @@ public class OfficeItemCreator : MonoBehaviour
                     barImage.fillAmount=(paid/price);
                 }
                 
-                yield return new WaitForSeconds(0.05f);
+                
             }
             
         }
