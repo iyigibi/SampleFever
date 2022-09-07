@@ -38,9 +38,9 @@ public Dictionary<string,List<GameObject>> poolDictionary;
 
 
     public GameObject SpawnFromPool (string tag,Vector3 position,Quaternion rotation){
-        Debug.Log(tag);
+        //Debug.Log(tag);
         if(!poolDictionary.ContainsKey(tag)){
-            Debug.Log("no item");
+            //Debug.Log("no item");
             return null;
         }
 
