@@ -14,15 +14,19 @@ public class OfficeItemCreator : MonoBehaviour
     private float price;
     [SerializeField]
     private GameObject whatToCreate;
+    [SerializeField]
+    private Spawner Spawner;
     private float paid=0;
     private Image barImage;
     private Wallet wallet;
     private TextMeshProUGUI yazi;
 
+
     void Start()
     {
         barImage=transform.GetChild(0).GetChild(1).GetComponent<Image>();
         yazi=transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>();
+        Spawner=transform.parent.GetComponent<Spawner>();
         displayMoney();
     }
 
@@ -37,9 +41,10 @@ public class OfficeItemCreator : MonoBehaviour
     internal IEnumerator ProgressStep(){
         while (true){
             if(paid==price){
-                //spawnIt
+                Spawner.Spawn(whatToCreate,transform.position,transform.rotation);
+                Destroy(gameObject);
                 StopCoroutineFunc();
-                yield return new WaitForSeconds(0.005f);
+                yield return new WaitForSeconds(0.05f);
             }else{
                 bool moneyGot=wallet.GiveMoney();
                 if(moneyGot){
@@ -49,7 +54,7 @@ public class OfficeItemCreator : MonoBehaviour
                     barImage.fillAmount=(paid/price);
                 }
                 
-                yield return new WaitForSeconds(0.005f);
+                yield return new WaitForSeconds(0.05f);
             }
             
         }
