@@ -14,6 +14,8 @@ public class CharController : MonoBehaviour
     public GameObject tray;
     [SerializeField]
     private Animator animator;
+
+    public List<Enemy> agro=new List<Enemy>();
     // Start is called before the first frame update
     void Start()
     {
@@ -91,6 +93,13 @@ public class CharController : MonoBehaviour
         if(creator){
             creator.OnWorkerEnter(gameObject);
         }
+
+        Enemy enemy=col.gameObject.GetComponent<Enemy>();
+        if(enemy && agro.Count==0){
+            agro.Add(enemy);
+            enemy.AddDropper(gameObject);
+        }
+
        
         
     }
@@ -108,6 +117,13 @@ public class CharController : MonoBehaviour
         if(creator){
             creator.OnWorkerExit();
         }
+
+        Enemy enemy=col.gameObject.GetComponent<Enemy>();
+        if(enemy){
+            agro.Remove(enemy);
+            enemy.RemoveDropper(gameObject);
+        }
+        
     }
 
 
