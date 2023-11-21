@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
         private int costForNewItem=4;
         private int itemTaken=0;
         private Pooler pooler;
+        public float health=100;
 
     void Awake(){
         stack=new Stack(gameObject,1,1,50);
@@ -27,6 +28,12 @@ public class Enemy : MonoBehaviour
     void Start(){
 
        // table=((Generator)generator).myTable.GetComponent<Table>();
+    }
+
+    void Update(){
+        
+        transform.right=(CharController.Instance.transform.position-transform.position).normalized;
+        transform.position=transform.position+transform.right*Time.deltaTime*2f;
     }
     internal void AddDropper(GameObject _dropper){
 
@@ -66,7 +73,7 @@ public class Enemy : MonoBehaviour
 
         internal IEnumerator workerToDesk(){
         while (true){
-            if(stack.IsFull() || droppers.Count==0){
+            if(stack.IsFull() || droppers.Count==0 || health<1){
                 stopWorkerToDesk();
                 yield return new WaitForSeconds(0.2f);
                 
@@ -87,18 +94,27 @@ public class Enemy : MonoBehaviour
                     Vector3 toPos=myPlace.position+holderTransform.localPosition;
                     takenItem.transform.SetParent(holderTransform.parent,true);
             //
-                    iTween.MoveTo(takenItem.gameObject, iTween.Hash("position", toPos, "time", 0.5f, "islocal", true));
+            
+                    iTween.MoveTo(takenItem.gameObject, iTween.Hash("position", toPos, "time", 0.1f, "islocal", true,
+                                "easetype", "linear"));
+                    /*
                     iTween.RotateTo(takenItem.gameObject, iTween.Hash(
                                 "rotation", new Vector3(0,0,32f*Random.value-16f),
-                                "time", 0.5f,
+                                "time", 0.2f,
                                 "islocal", true,
                                 "easetype", "linear"
                             ));
+*/
 
-
-                    yield return new WaitForSeconds(0.4f);
+                    yield return new WaitForSeconds(0.2f);
+                    
                     takenItem=stack.takePlace();
-                     pooler.SendToPool(takenItem);
+                     pooler.SendToPool(takenItem.gameObject);
+                     health-=5;
+                    if(health<1)
+                    {
+                        pooler.SendToPool(gameObject,0.4f);
+                    }
                 }else{
                     stopWorkerToDesk();
                     yield return new WaitForSeconds(0.2f);

@@ -17,11 +17,13 @@ public class CharController : MonoBehaviour
 
     public List<Enemy> agro =new List<Enemy>();
     public Enemy targetedEnemy;
+    public static CharController Instance;
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         stack=new Stack(tray,1,2,20);
+        Instance=this;
     }
 
     // Update is called once per frame
@@ -175,6 +177,8 @@ public class CharController : MonoBehaviour
             if (targetedEnemy && targetedEnemy.droppers.Contains(gameObject))
             {
                 targetedEnemy.RemoveDropper(gameObject);
+                targetedEnemy=null;
+                newTarget=null;
             }
         }
     }
