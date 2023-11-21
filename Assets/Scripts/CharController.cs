@@ -15,7 +15,8 @@ public class CharController : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
-    public List<Enemy> agro=new List<Enemy>();
+    public List<Enemy> agro =new List<Enemy>();
+    public Enemy targetedEnemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -95,9 +96,11 @@ public class CharController : MonoBehaviour
         }
 
         Enemy enemy=col.gameObject.GetComponent<Enemy>();
-        if(enemy && agro.Count==0){
-            agro.Add(enemy);
-            enemy.AddDropper(gameObject);
+        if(enemy){
+
+
+            AddToAgro(enemy);
+            //enemy.AddDropper(gameObject);
         }
 
        
@@ -120,10 +123,60 @@ public class CharController : MonoBehaviour
 
         Enemy enemy=col.gameObject.GetComponent<Enemy>();
         if(enemy){
-            agro.Remove(enemy);
-            enemy.RemoveDropper(gameObject);
+            RemoveFromAgro(enemy);
+            //enemy.RemoveDropper(gameObject);
         }
         
+    }
+    Enemy newTarget;
+    void AddToAgro(Enemy enemy)
+    {
+        agro.Add(enemy);
+        newTarget = enemy;
+    }
+    void RemoveFromAgro(Enemy enemy)
+    {
+
+        agro.Remove(enemy);
+    }
+
+    private void FixedUpdate()
+    {
+        if (agro.Count > 0)
+        {
+            float minDistance = 9999;
+            foreach(Enemy enemy in agro)
+            {
+                float distance= Vector3.Distance(transform.position, enemy.transform.position);
+                
+                if (distance < minDistance)
+                {
+                    newTarget = enemy;
+                    minDistance = distance;
+                };
+                
+            };
+            if (targetedEnemy != newTarget)
+            {
+                if (targetedEnemy && targetedEnemy.droppers.Contains(gameObject))
+                {
+                    targetedEnemy.RemoveDropper(gameObject);
+                }
+                
+                targetedEnemy = newTarget;
+                targetedEnemy.AddDropper(gameObject);
+            }
+
+
+
+        }
+        else
+        {
+            if (targetedEnemy && targetedEnemy.droppers.Contains(gameObject))
+            {
+                targetedEnemy.RemoveDropper(gameObject);
+            }
+        }
     }
 
 
