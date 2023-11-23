@@ -110,7 +110,7 @@ public class Enemy : MonoBehaviour
                     
                     takenItem=stack.takePlace();
                      pooler.SendToPool(takenItem.gameObject);
-                     health-=5;
+                     health-=26;
                     if(health<1)
                     {
                         pooler.SendToPool(gameObject,0.4f);
