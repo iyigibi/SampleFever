@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
         private int itemTaken=0;
         private Pooler pooler;
         public float health=100;
+        private Rigidbody2D rb;
 
     void Awake(){
         stack=new Stack(gameObject,1,1,50);
@@ -26,14 +27,16 @@ public class Enemy : MonoBehaviour
         
     }
     void Start(){
-
+rb=gameObject.GetComponent<Rigidbody2D>();
        // table=((Generator)generator).myTable.GetComponent<Table>();
     }
 
     void Update(){
         
         transform.right=(CharController.Instance.transform.position-transform.position).normalized;
-        transform.position=transform.position+transform.right*Time.deltaTime*2f;
+        //transform.position=transform.position+transform.right*Time.deltaTime*2f;
+        //rb.AddForce(transform.right*Time.deltaTime*10f);
+        rb.velocity=transform.right*2f;
     }
     internal void AddDropper(GameObject _dropper){
 
@@ -75,7 +78,7 @@ public class Enemy : MonoBehaviour
         while (true){
             if(stack.IsFull() || droppers.Count==0 || health<1){
                 stopWorkerToDesk();
-                yield return new WaitForSeconds(0.2f);
+                yield return null;
                 
             }else{
                 CharController activeDropper=droppers[0].GetComponent<CharController>();
@@ -83,7 +86,7 @@ public class Enemy : MonoBehaviour
                     GameObject takenItem=activeDropper.stack.takePlace();
                     if(!takenItem){
                         stopWorkerToDesk();
-                        yield return new WaitForSeconds(0.2f);
+                        yield return null;
                         
                     }
                     Place myPlace=stack.givePlace(takenItem);
@@ -113,11 +116,11 @@ public class Enemy : MonoBehaviour
                      health-=26;
                     if(health<1)
                     {
-                        pooler.SendToPool(gameObject,0.4f);
+                        pooler.SendToPool(gameObject,0.0f);
                     }
                 }else{
-                    stopWorkerToDesk();
-                    yield return new WaitForSeconds(0.2f);
+                    //stopWorkerToDesk();
+                    yield return null;
                     
                 }
                 
