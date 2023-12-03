@@ -10,7 +10,7 @@ public class PaperToMoney : Generator,IHasTable
     void Start()
     {   
         
-        myGenerator= new ItemGenerator(activeOnStart,9999,40);
+        myGenerator= new ItemGenerator(activeOnStart,9999,5);
         myItemCreator=this.GetComponent<ItemCreate>();
         myTable.GetComponent<Table>().generator=(Generator)this;
 

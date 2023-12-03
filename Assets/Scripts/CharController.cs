@@ -14,7 +14,6 @@ public class CharController : MonoBehaviour
     public GameObject tray;
     [SerializeField]
     private Animator animator;
-
     public List<Enemy> agro =new List<Enemy>();
     public Enemy targetedEnemy;
     public static CharController Instance;
@@ -34,8 +33,8 @@ public class CharController : MonoBehaviour
 
          if(Input.touchCount > 0 )
          { 
-                theTouch = Input.GetTouch(0);
-                if(theTouch.phase == TouchPhase.Began)
+            theTouch = Input.GetTouch(0);
+            if(theTouch.phase == TouchPhase.Began)
             {
                 preDelta=delta=theTouch.position;
                 touchDown=true;
@@ -43,7 +42,6 @@ public class CharController : MonoBehaviour
             if(theTouch.phase == TouchPhase.Moved)
             {
                 delta=theTouch.position;
-                       
             } else if(theTouch.phase==TouchPhase.Ended){
                 preDelta=delta=Vector2.zero;
                 touchDown=false;
@@ -70,7 +68,8 @@ public class CharController : MonoBehaviour
                 rb.velocity=velocity;
                 animator.SetBool("isWalking",true);
                 animator.SetFloat("speed",sqrMag);
-                transform.up=velocityNorm;
+                animator.SetFloat("speedm", velocity.magnitude);
+            transform.up=velocityNorm;
                 }else{
                     rb.velocity=Vector2.zero;
                     animator.SetBool("isWalking",false);

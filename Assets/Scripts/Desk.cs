@@ -96,7 +96,7 @@ public class Desk : MonoBehaviour
                             ));
 
 
-                    yield return new WaitForSeconds(0.04f);
+                    yield return new WaitForSeconds(0.4f);
                 }else{
                     stopWorkerToDesk();
                     yield return new WaitForSeconds(0.2f);

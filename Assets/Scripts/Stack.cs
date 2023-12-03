@@ -26,7 +26,7 @@ public class Stack
             }
                 for(int j=0;j<rowStackCount;j++){
                     
-                    places.Add(new Place(new Vector3((j-1)*0.8f,(k-1)*0.8f,((i-(k-1)*(maxStack)))*-0.1f-0.51f),false,_gameObject));
+                    places.Add(new Place(new Vector3((j-1)*0.8f,(k-1)*0.8f,((i-(k-1)*(maxStack)))*-0.4f-0.91f),false,_gameObject));
                 }
             
         };
