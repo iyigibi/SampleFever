@@ -36,7 +36,7 @@ public class Printer : Generator,IHasTable
         if(myGenerator.isGenerating){
             //Debug.Log(myGenerator.isOn());
             myGenerator.taskTime+=Time.deltaTime;
-            transform.localScale =  new Vector3(1f+Mathf.Sin(myGenerator.getTaskPercent()*Mathf.PI),transform.localScale.y,transform.localScale.z);
+            //transform.localScale =  new Vector3(1f+Mathf.Sin(myGenerator.getTaskPercent()*Mathf.PI),transform.localScale.y,transform.localScale.z);
         }
     }  
 }
