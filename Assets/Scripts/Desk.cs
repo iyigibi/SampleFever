@@ -34,7 +34,7 @@ public class Desk : MonoBehaviour
         //generator.StartJob();
         startWorkerToDesk();
         
-        startDeskToTable();
+        
         
     }
         internal void RemoveDropper(GameObject _gameObject){
@@ -55,8 +55,10 @@ public class Desk : MonoBehaviour
                     generator.StartJob(true);
                     itemTaken=0;
                 }
-                
-            }else{
+                yield return new WaitForSeconds(1.4f);
+
+            }
+            else{
                 stopDeskToTable();
             }
             
@@ -94,8 +96,7 @@ public class Desk : MonoBehaviour
                                 "islocal", true,
                                 "easetype", "linear"
                             ));
-
-
+                    startDeskToTable();
                     yield return new WaitForSeconds(0.4f);
                 }else{
                     stopWorkerToDesk();

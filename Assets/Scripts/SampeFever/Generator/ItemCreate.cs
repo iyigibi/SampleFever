@@ -36,6 +36,7 @@ public class ItemCreate:MonoBehaviour
             speed=0.2f;
             //Destroy(newItem,speed);
             pooler.SendToPool(newItem,speed);
+            Wallet.instance.TakeMoney();
             
         }
         Transform holderTransform=myPlace.holder.transform;
@@ -50,8 +51,9 @@ public class ItemCreate:MonoBehaviour
                       "islocal", true,
                      "easetype", "linear"
                  ));
+        
 
-                 return true;
+        return true;
     }
 
     

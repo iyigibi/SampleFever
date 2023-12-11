@@ -264,7 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   droppers: []
   generator: {fileID: 1611391515312499799}
-  costForNewItem: 4
+  costForNewItem: 2
 --- !u!1 &1611391515579382423
 GameObject:
   m_ObjectHideFlags: 0

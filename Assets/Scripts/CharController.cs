@@ -58,9 +58,9 @@ public class CharController : MonoBehaviour
 
     void LateUpdate(){
             if(touchDown){
-                Vector3 velocity=(delta-preDelta)*0.01f;
+                Vector2 velocity=( delta-preDelta)*0.02f;
                 float sqrMag=velocity.sqrMagnitude;
-                Vector3 velocityNorm=velocity.normalized;
+            Vector2 velocityNorm =velocity.normalized;
                 if(sqrMag>maxSpeed){
                     velocity=velocityNorm*maxSpeed;
                 }
@@ -68,7 +68,7 @@ public class CharController : MonoBehaviour
                 rb.velocity=velocity;
                 animator.SetBool("isWalking",true);
                 animator.SetFloat("speed",sqrMag);
-                animator.SetFloat("speedm", velocity.magnitude);
+                //animator.SetFloat("speedm", velocity.magnitude);
             transform.up=velocityNorm;
                 }else{
                     rb.velocity=Vector2.zero;

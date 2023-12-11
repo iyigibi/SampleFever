@@ -7,8 +7,17 @@ public class Wallet : MonoBehaviour
 {
     private int coin;
     public TextMeshProUGUI yazi;
+    public static Wallet instance;
     // Start is called before the first frame update
-    internal void TakeMoney(){
+    private void Start()
+    {
+        if (instance)
+        {
+            Destroy(instance);
+        }
+        instance = this;
+    }
+    public void TakeMoney(){
         coin++;
         displayMoney();
     }

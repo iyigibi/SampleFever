@@ -45,8 +45,8 @@ public class Generator : MonoBehaviour
                         StopCoroutine(task);
                     taskIsRunning=false;
                     }
-                    
-                    yield return null;
+
+                    yield return new WaitForSeconds(0.5f);
                 }
                 yield return new WaitForSeconds(myGenerator.startGenerating());
                 myGenerator.stopGenerating();

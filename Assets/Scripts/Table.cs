@@ -133,6 +133,7 @@ public class Table : MonoBehaviour
                                 "islocal", true,
                                 "easetype", "linear"
                             ));
+                    Debug.Log("bomcekk"+transform.parent.gameObject.name);
 
                     
                     yield return new WaitForSeconds(0.2f);
