@@ -98,10 +98,14 @@ public class CharController : MonoBehaviour
 
         Enemy enemy=col.gameObject.GetComponent<Enemy>();
         if(enemy){
-
-
             AddToAgro(enemy);
             //enemy.AddDropper(gameObject);
+        }
+
+        ExporterGold exporterGold = col.gameObject.GetComponent<ExporterGold>();
+        if (exporterGold)
+        {
+            exporterGold.AddDropper(gameObject);
         }
 
        
@@ -127,7 +131,13 @@ public class CharController : MonoBehaviour
             RemoveFromAgro(enemy);
             //enemy.RemoveDropper(gameObject);
         }
-        
+
+        ExporterGold exporterGold = col.gameObject.GetComponent<ExporterGold>();
+        if (exporterGold)
+        {
+            exporterGold.RemoveDropper(gameObject);
+        }
+
     }
     Enemy newTarget;
     void AddToAgro(Enemy enemy)

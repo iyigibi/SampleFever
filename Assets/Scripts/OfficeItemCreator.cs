@@ -52,7 +52,7 @@ public class OfficeItemCreator : MonoBehaviour
                 StopCoroutineFunc();
                 
             }else{
-                bool moneyGot=wallet.GiveMoney();
+                bool moneyGot=wallet.GiveGold();
                 if(moneyGot){
                     paid++;
                     displayMoney();

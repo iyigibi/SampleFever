@@ -6,6 +6,7 @@ using TMPro;
 public class Wallet : MonoBehaviour
 {
     private int coin;
+    public int gold;
     public TextMeshProUGUI yazi;
     public static Wallet instance;
     // Start is called before the first frame update
@@ -17,9 +18,25 @@ public class Wallet : MonoBehaviour
         }
         instance = this;
     }
+
+    public void TakeGold()
+    {
+        gold++;
+        displayMoney();
+    }
     public void TakeMoney(){
         coin++;
         displayMoney();
+    }
+    internal bool GiveGold()
+    {
+        if (gold > 0)
+        {
+            gold--;
+            displayMoney();
+            return true;
+        };
+        return false;
     }
     internal bool GiveMoney(){
         if(coin>0){
@@ -31,7 +48,7 @@ public class Wallet : MonoBehaviour
     }
 
     private void displayMoney(){
-        yazi.text = coin.ToString();
+        yazi.text = coin.ToString()+" "+gold.ToString();
     }
     void Awake()
     {
