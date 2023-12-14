@@ -256,6 +256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1611391516074570732}
   - component: {fileID: 1611391516074570733}
+  - component: {fileID: 3071403790694284935}
   m_Layer: 0
   m_Name: PaperToMoneySet
   m_TagString: Untagged
@@ -308,6 +309,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.31, y: 1.8}
   m_EdgeRadius: 0
+--- !u!114 &3071403790694284935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611391516074570731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da589da34ab44d2a87d329f5f31c3d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sequences:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3009311525566780921}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1611391516129508481
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,9 +510,9 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 1
+  looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -1461,7 +1489,7 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 0
+      cycleCount: 1
       repeatInterval: 1
       probability: 1
   SizeModule:
