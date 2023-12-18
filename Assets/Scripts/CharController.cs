@@ -66,18 +66,18 @@ public class CharController : MonoBehaviour
                 }
                 
                 rb.velocity=velocity;
-                animator.SetBool("isWalking",true);
-                animator.SetFloat("speed",sqrMag);
+                animator.SetBool("IsMoving",true);
+                animator.SetFloat("Speed",sqrMag);
                 //animator.SetFloat("speedm", velocity.magnitude);
             transform.up=velocityNorm;
                 }else{
                     rb.velocity=Vector2.zero;
-                    animator.SetBool("isWalking",false);
+                    animator.SetBool("IsMoving",false);
                 }
             if(stack.IsEmpty()){
-                animator.SetBool("isCarrying",false);
+                animator.SetBool("IsCarrying",false);
             }else{
-                animator.SetBool("isCarrying",true);
+                animator.SetBool("IsCarrying",true);
             }
     }
 
