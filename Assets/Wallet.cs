@@ -48,7 +48,7 @@ public class Wallet : MonoBehaviour
     }
 
     private void displayMoney(){
-        yazi.text = coin.ToString()+" "+gold.ToString();
+        yazi.text = "W: "+coin.ToString()+", G:" +gold.ToString();
     }
     void Awake()
     {
