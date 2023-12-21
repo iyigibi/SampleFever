@@ -212,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   droppers: []
   generator: {fileID: 1611391515312499799}
+  item: {fileID: 2765542676620732240, guid: ee4f063e80d8a1549bb02b23de5da1c7, type: 3}
   costForNewItem: 2
 --- !u!1 &1611391515579382423
 GameObject:
