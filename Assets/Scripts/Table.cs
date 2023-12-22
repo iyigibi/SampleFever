@@ -104,20 +104,36 @@ public class Table : MonoBehaviour
                         
                         yield return new WaitForSeconds(0.2f);
                     }
-                    Place myPlace;
+                    GameObject collector = collectors[0];
+                    Place myPlace = new Place(new Vector3(0, 0, -1), false, collector.transform.GetChild(0).gameObject);
                     float speed=0.5f;
-                    if(takenItem.gameObject.GetComponent<Money>()){
-                        GameObject collector=collectors[0];
-                        myPlace=new Place(new Vector3(0,0,-1),false,collector.transform.GetChild(0).gameObject);
-                        speed=0.1f;
-                        pooler.SendToPool(takenItem,speed);
-                        //Destroy(takenItem, speed);
-                        collector.GetComponent<Wallet>().TakeMoney();
-                        
+                    BaseItem _item = takenItem.gameObject.GetComponent<BaseItem>();
+                    if (_item)
+                    {
 
-                        //moneyCollected
-                    }else{
-                        myPlace=activeCollector.stack.givePlace(takenItem);
+                        switch (_item)
+                        {
+                            case SampleFever.Arrow:
+                                
+                                speed = 0.1f;
+                                pooler.SendToPool(takenItem, speed);
+                                //Destroy(takenItem, speed);
+                                collector.GetComponent<Wallet>().TakeMoney();
+
+                                break;
+                            case SampleFever.Money:
+                                speed = 0.1f;
+                                pooler.SendToPool(takenItem, speed);
+                                //Destroy(takenItem, speed);
+                                collector.GetComponent<Wallet>().TakeMoney();
+
+                                break;
+                            case SampleFever.Paper:
+                                myPlace = activeCollector.stack.givePlace(takenItem);
+                                break;
+                        }
+
+
                     }
                     
 
@@ -133,7 +149,7 @@ public class Table : MonoBehaviour
                                 "islocal", true,
                                 "easetype", "linear"
                             ));
-                    Debug.Log("bomcekk"+transform.parent.gameObject.name);
+                    //Debug.Log("bomcekk"+transform.parent.gameObject.name);
 
                     
                     yield return new WaitForSeconds(0.2f);

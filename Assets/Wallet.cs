@@ -5,7 +5,7 @@ using TMPro;
 
 public class Wallet : MonoBehaviour
 {
-    private int coin;
+    public int coin;
     public int gold;
     public TextMeshProUGUI yazi;
     public static Wallet instance;

@@ -88,9 +88,26 @@ public class CharController : MonoBehaviour
              _table.AddCollector(gameObject);
         }
         Desk _desk=col.gameObject.GetComponent<Desk>();
-        if(_desk && !stack.IsEmpty()){
-             _desk.AddDropper(gameObject);
+        if (_desk)
+        {
+            switch (_desk.item)
+            {
+                case SampleFever.Paper:
+                    if (!stack.IsEmpty())
+                    {
+                        _desk.AddDropper(gameObject);
+                    }
+                    break;
+                case SampleFever.Money:
+                    if (Wallet.instance.coin > 0)
+                    {
+                        _desk.AddDropper(gameObject);
+                    }
+                    break;
+            }
         }
+        
+        
         OfficeItemCreator creator=col.gameObject.GetComponent<OfficeItemCreator>();
         if(creator){
             creator.OnWorkerEnter(gameObject);

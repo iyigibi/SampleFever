@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.13258892, g: 0.11105213, b: 0.0894647, a: 1}
+  m_IndirectSpecularColor: {r: 0.1341235, g: 0.11232806, b: 0.09019371, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5606,6 +5606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7136411e166e561469a9a78e4b34a076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coin: 0
   gold: 0
   yazi: {fileID: 78163879}
 --- !u!23 &967612147
@@ -7739,7 +7740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1637964619262602325, guid: 0f18f9a452aa69847b2e5bc74abc0334, type: 3}
       propertyPath: price
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1637964619262602325, guid: 0f18f9a452aa69847b2e5bc74abc0334, type: 3}
       propertyPath: whatToCreate

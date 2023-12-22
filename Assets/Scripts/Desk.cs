@@ -9,7 +9,7 @@ public class Desk : MonoBehaviour
         [SerializeField]
     private Generator generator;
     [SerializeField]
-    private BaseItem item;
+    public BaseItem item;
     Stack stack;
         internal Coroutine workerToDeskCoroutine;
         internal bool workerToDeskCoroutineIsRunning;
@@ -111,13 +111,10 @@ public class Desk : MonoBehaviour
                                             }
                             break;
                         case SampleFever.Money:
-                                            if(!activeDropper.stack.IsEmpty()){
-                                                GameObject takenItem=activeDropper.stack.takePlace();
-                                                if(!takenItem){
-                                                    stopWorkerToDesk();
-                                                    yield return new WaitForSeconds(0.2f);
-                                                    
-                                                }
+                        Debug.Log(Wallet.instance.coin+" "+ Wallet.instance.gold);
+                                            if(Wallet.instance.coin>0){
+                                                GameObject takenItem= pooler.SpawnFromPool("Money", activeDropper.transform.position, activeDropper.transform.rotation);
+                                                Wallet.instance.GiveMoney();
                                                 Place myPlace=stack.givePlace(takenItem);
                                                         
 
