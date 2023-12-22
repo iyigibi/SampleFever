@@ -7,6 +7,7 @@ public class Wallet : MonoBehaviour
 {
     public int coin;
     public int gold;
+    public int arrow;
     public TextMeshProUGUI yazi;
     public static Wallet instance;
     // Start is called before the first frame update
@@ -22,6 +23,11 @@ public class Wallet : MonoBehaviour
     public void TakeGold()
     {
         gold++;
+        displayMoney();
+    }
+    public void TakeArrow()
+    {
+        arrow++;
         displayMoney();
     }
     public void TakeMoney(){
@@ -48,7 +54,7 @@ public class Wallet : MonoBehaviour
     }
 
     private void displayMoney(){
-        yazi.text = "W: "+coin.ToString()+", G:" +gold.ToString();
+        yazi.text = "W: "+coin.ToString() + ", G:" + gold.ToString() + ", A:" + arrow.ToString();
     }
     void Awake()
     {

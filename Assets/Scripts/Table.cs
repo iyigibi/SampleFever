@@ -118,7 +118,7 @@ public class Table : MonoBehaviour
                                 speed = 0.1f;
                                 pooler.SendToPool(takenItem, speed);
                                 //Destroy(takenItem, speed);
-                                collector.GetComponent<Wallet>().TakeMoney();
+                                collector.GetComponent<Wallet>().TakeArrow();
 
                                 break;
                             case SampleFever.Money:

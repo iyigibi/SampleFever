@@ -32,11 +32,25 @@ public class ItemCreate:MonoBehaviour
         }
         //newItem.transform.position=myTable._transform.parent.position;
         float speed=0.5f;
-        if(!myPlace.holder.GetComponent<Table>() && newItem.GetComponent<Money>()){
-            speed=0.2f;
-            //Destroy(newItem,speed);
-            pooler.SendToPool(newItem,speed);
-            Wallet.instance.TakeMoney();
+        BaseItem _item = newItem.GetComponent<BaseItem>();
+        if (!myPlace.holder.GetComponent<Table>() && _item){
+            //direkt alýyor tablesiz
+            switch (_item)
+            {
+                case SampleFever.Money:
+                    speed = 0.2f;
+                    pooler.SendToPool(newItem, speed);
+                    Wallet.instance.TakeMoney();
+                    break;
+                case SampleFever.Arrow:
+                    speed = 0.2f;
+                    pooler.SendToPool(newItem, speed);
+                    Wallet.instance.TakeArrow();
+                    break;
+            }
+
+                    
+
             
         }
         Transform holderTransform=myPlace.holder.transform;
