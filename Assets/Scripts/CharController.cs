@@ -125,6 +125,12 @@ public class CharController : MonoBehaviour
             exporterGold.AddDropper(gameObject);
         }
 
+        AmmoLoader ammoloader = col.gameObject.GetComponent<AmmoLoader>();
+        if (ammoloader)
+        {
+            ammoloader.AddDropper(gameObject);
+        }
+
        
         
     }
@@ -153,6 +159,12 @@ public class CharController : MonoBehaviour
         if (exporterGold)
         {
             exporterGold.RemoveDropper(gameObject);
+        }
+
+        AmmoLoader ammoloader = col.gameObject.GetComponent<AmmoLoader>();
+        if (ammoloader)
+        {
+            ammoloader.RemoveDropper(gameObject);
         }
 
     }

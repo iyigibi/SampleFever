@@ -18,6 +18,7 @@ public class Wallet : MonoBehaviour
             Destroy(instance);
         }
         instance = this;
+        instance.arrow=100;
     }
 
     public void TakeGold()
@@ -47,6 +48,15 @@ public class Wallet : MonoBehaviour
     internal bool GiveMoney(){
         if(coin>0){
             coin--;
+            displayMoney();
+            return true;
+        };
+        return false;
+    }
+
+    internal bool GiveArrow(){
+        if(arrow>0){
+            arrow--;
             displayMoney();
             return true;
         };
