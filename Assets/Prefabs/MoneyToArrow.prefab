@@ -119,6 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myTable: {fileID: 1611391516129508481}
   activeOnStart: 1
+  anim: {fileID: 3071403790694284935}
 --- !u!1 &1611391515367889607
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +246,7 @@ MonoBehaviour:
   droppers: []
   generator: {fileID: 3047971846227248729}
   item: {fileID: 7367212451065808713, guid: 9b412a5f16871df46bd64bc43baf90a7, type: 3}
+  anim: {fileID: 3071403790694284935}
   costForNewItem: 2
 --- !u!1 &1611391515579382423
 GameObject:
@@ -360,16 +362,54 @@ MonoBehaviour:
   sequences:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3009311525566780921}
-        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
+      - m_Target: {fileID: 9029047141579610311}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: ResetTrigger
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: stop
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 9029047141579610311}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: do
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9029047141579610311}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: ResetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: do
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 9029047141579610311}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: stop
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1611391516129508481
@@ -472,6 +512,7 @@ MonoBehaviour:
   collectors: []
   drivenByADesk: 1
   myDesk: {fileID: 1611391515367889613}
+  anim: {fileID: 0}
 --- !u!61 &1611391516129508482
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5853,5 +5894,10 @@ Transform:
 --- !u!4 &3860332455092329118 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: f2dc81f7b538a4c35afab140b0f934f2, type: 3}
+  m_PrefabInstance: {fileID: 3181523895804716374}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &9029047141579610311 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: f2dc81f7b538a4c35afab140b0f934f2, type: 3}
   m_PrefabInstance: {fileID: 3181523895804716374}
   m_PrefabAsset: {fileID: 0}

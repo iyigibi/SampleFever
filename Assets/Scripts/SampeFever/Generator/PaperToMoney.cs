@@ -5,7 +5,6 @@ using SampleFever;
 public class PaperToMoney : Generator,IHasTable
 {
     public bool activeOnStart;
-
     
     void Start()
     {   

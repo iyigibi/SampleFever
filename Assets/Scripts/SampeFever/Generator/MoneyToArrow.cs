@@ -5,7 +5,7 @@ using SampleFever;
 public class MoneyToArrow : Generator,IHasTable
 {
     public bool activeOnStart;
-
+    public Anim anim;
     
     void Start()
     {   
@@ -28,6 +28,8 @@ public class MoneyToArrow : Generator,IHasTable
             //Debug.Log(myGenerator.isOn());
             myGenerator.taskTime+=Time.deltaTime;
             transform.localScale =  new Vector3(1f+Mathf.Sin(myGenerator.getTaskPercent()*Mathf.PI),transform.localScale.y,transform.localScale.z);
+            
         }
-    }  
+
+    }
 }

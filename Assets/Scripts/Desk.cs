@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SampleFever;
+using UnityEngine.Events;
 
 public class Desk : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class Desk : MonoBehaviour
     private Generator generator;
     [SerializeField]
     public BaseItem item;
+    [SerializeField]
+    Anim anim;
+
+    [SerializeField] UnityEvent onItemAdded;
+
     Stack stack;
         internal Coroutine workerToDeskCoroutine;
         internal bool workerToDeskCoroutineIsRunning;
@@ -25,6 +31,16 @@ public class Desk : MonoBehaviour
         stack=new Stack(gameObject,1,1,50);
         pooler=Pooler.Instance;
         
+    }
+    internal void StopAnimation()
+    {
+        if (anim == null) return;
+        if (anim.LastPlayed != 1) anim.Play(1);
+    }
+    internal void StartAnimation()
+    {
+        if (anim == null) return;
+        if (anim.LastPlayed != 0) anim.Play(0);
     }
     void Start(){
 
@@ -54,6 +70,7 @@ public class Desk : MonoBehaviour
                 //Destroy(takenItem);
                 itemTaken++;
                 if(itemTaken==costForNewItem){
+                    onItemAdded?.Invoke();
                     generator.StartJob(true);
                     itemTaken=0;
                 }
@@ -122,7 +139,7 @@ public class Desk : MonoBehaviour
                                     
                                                 Vector3 toPos=myPlace.position+holderTransform.localPosition;
                                                 takenItem.transform.SetParent(holderTransform.parent,true);
-                                        //
+                                        //          
                                                 iTween.MoveTo(takenItem.gameObject, iTween.Hash("position", toPos, "time", 0.5f, "islocal", true));
                                                 iTween.RotateTo(takenItem.gameObject, iTween.Hash(
                                                             "rotation", new Vector3(0,0,32f*Random.value-16f),
@@ -156,14 +173,17 @@ public class Desk : MonoBehaviour
         }
         void startWorkerToDesk(){
                 if(!workerToDeskCoroutineIsRunning){
-                    workerToDeskCoroutine=StartCoroutine(workerToDesk());
+            StartAnimation();
+
+            workerToDeskCoroutine = StartCoroutine(workerToDesk());
                     workerToDeskCoroutineIsRunning=true;
                 }
         }
 
         void stopDeskToTable(){
             if(DeskToTableCoroutineIsRunning){
-                StopCoroutine(DeskToTableCoroutine);
+            StopAnimation();
+            StopCoroutine(DeskToTableCoroutine);
                 DeskToTableCoroutineIsRunning=false;
                 
             }

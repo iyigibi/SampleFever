@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SampleFever;
+using UnityEngine.Events;
 
 public class Table : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class Table : MonoBehaviour
     public Desk myDesk;
     private Pooler pooler;
 
-
+    [SerializeField] Anim anim;
 
     void Awake()
     {
@@ -47,7 +48,18 @@ public class Table : MonoBehaviour
             }
             
         }
-        
+
+
+    }
+    internal void StopAnimation()
+    {
+        if (anim == null) return;
+        if(anim.LastPlayed != 1) anim.Play(1);
+    }
+    internal void StartAnimation()
+    {
+        if (anim == null) return;
+        if (anim.LastPlayed != 0) anim.Play(0);
     }
     internal void RemoveCollector(GameObject _gameObject){
        // Debug.Log(collectors.IndexOf(_gameObject));
@@ -83,9 +95,11 @@ public class Table : MonoBehaviour
     }
 
     internal IEnumerator tableToWorker(){
+        StartAnimation();
         while (true){
             if(stack.IsEmpty() || collectors.Count==0){
                 if(tableToWorkerCoroutineIsRunning){
+                            StopAnimation();
                             StopCoroutine(tableToWorkerCoroutine);
                             tableToWorkerCoroutineIsRunning=false;
                         }
@@ -98,6 +112,8 @@ public class Table : MonoBehaviour
                     GameObject takenItem=stack.takePlace();
                     if(!takenItem){
                         if(tableToWorkerCoroutineIsRunning){
+                            StopAnimation();
+
                             StopCoroutine(tableToWorkerCoroutine);
                             tableToWorkerCoroutineIsRunning=false;
                         }
@@ -141,7 +157,7 @@ public class Table : MonoBehaviour
         
                     Vector3 toPos=myPlace.position+holderTransform.localPosition;
                     takenItem.transform.SetParent(holderTransform.parent,true);
-            //
+                    //      
                     iTween.MoveTo(takenItem.gameObject, iTween.Hash("position", toPos, "time", speed, "islocal", true));
                     iTween.RotateTo(takenItem.gameObject, iTween.Hash(
                                 "rotation", new Vector3(0,0,32f*Random.value-16f),
@@ -151,9 +167,11 @@ public class Table : MonoBehaviour
                             ));
                     //Debug.Log("bomcekk"+transform.parent.gameObject.name);
 
-                    
+
                     yield return new WaitForSeconds(0.2f);
                 }else{
+                    StopAnimation();
+
                     StopCoroutine(tableToWorkerCoroutine);
                     tableToWorkerCoroutineIsRunning=false;
                     yield return new WaitForSeconds(0.2f);
@@ -161,9 +179,11 @@ public class Table : MonoBehaviour
                 
             }
             //yield return new WaitForSeconds(0.5f);
-        }
+           
 
         }
+
+    }
 
     void onClick(){
         
